@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/.well-known/schemas/urn-eudi-pid-1.schema.json",
+  "title": "PID (urn:eudi:pid:1)",
+  "type": "object",
+
+  "required": [
+    "vct",
+    "issuing_authority",
+    "issuing_country",
+    "expiry_date",
+    "given_name",
+    "family_name"
+  ],
+
+  "properties": {
+    "vct": {
+      "type": "string",
+      "const": "urn:eudi:pid:1"
+    },
+
+    "issuing_authority": {
+      "type": "string",
+      "minLength": 1
+    },
+
+    "issuing_country": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 3,
+      "description": "ISO 3166-1 alpha-2 or alpha-3 recommended."
+    },
+
+    "expiry_date": {
+      "type": "string",
+      "format": "date",
+      "description": "RFC 3339 full-date (YYYY-MM-DD)."
+    },
+
+    "given_name": {
+      "type": "string",
+      "minLength": 1
+    },
+
+    "family_name": {
+      "type": "string",
+      "minLength": 1
+    },
+
+    "iss": { "type": "string" },
+    "iat": { "type": "integer" },
+    "nbf": { "type": "integer" },
+    "exp": { "type": "integer" },
+    "aud": { "type": ["string", "array"] },
+    "sub": { "type": "string" },
+    "cnf": { "type": "object" }
+  },
+
+  "additionalProperties": true
+}

@@ -1,0 +1,168 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.org/.well-known/schemas/medical-license-eaa-v1.schema.json",
+  "title": "Medical License EAA (SD-JWT VC) - v1",
+  "type": "object",
+  "additionalProperties": true,
+
+  "required": [
+    "vct",
+    "issuing_authority",
+    "issuing_country",
+    "expiry_date",
+    "given_name",
+    "family_name",
+    "license_number",
+    "profession"
+  ],
+
+  "properties": {
+    "vct": {
+      "type": "string",
+      "const": "urn:example:eaa:medical_license:1",
+      "description": "Verifiable Credential Type identifier."
+    },
+
+    "iss": {
+      "type": "string",
+      "format": "uri",
+      "description": "Issuer identifier (URI)."
+    },
+    "iat": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Issued-at timestamp (NumericDate)."
+    },
+    "nbf": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Not-before timestamp (NumericDate)."
+    },
+    "exp": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Expiration timestamp (NumericDate)."
+    },
+    "jti": {
+      "type": "string",
+      "description": "JWT ID / credential identifier."
+    },
+    "aud": {
+      "description": "Audience (optional).",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ]
+    },
+    "sub": {
+      "type": "string",
+      "description": "Subject identifier (optional)."
+    },
+
+    "cnf": {
+      "type": "object",
+      "description": "Confirmation (holder binding) object.",
+      "additionalProperties": true,
+      "properties": {
+        "jwk": {
+          "type": "object",
+          "additionalProperties": true,
+          "description": "Holder public key as JWK."
+        }
+      }
+    },
+
+    "status": {
+      "type": "object",
+      "description": "Status information reference (revocation/suspension).",
+      "additionalProperties": true,
+      "properties": {
+        "status_list": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "uri": { "type": "string", "format": "uri" },
+            "idx": { "type": "integer", "minimum": 0 },
+            "purpose": { "type": "string" }
+          }
+        }
+      }
+    },
+
+    "issuing_authority": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Authority that issued the license."
+    },
+    "issuing_country": {
+      "type": "string",
+      "pattern": "^[A-Z]{2}$",
+      "description": "ISO 3166-1 alpha-2 country code."
+    },
+    "expiry_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Expiry date in YYYY-MM-DD (RFC 3339 full-date)."
+    },
+
+    "given_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Given name."
+    },
+    "family_name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Family name."
+    },
+    "birth_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of birth (optional)."
+    },
+
+    "license_number": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Medical license number."
+    },
+    "license_type": {
+      "type": "string",
+      "description": "Type of license (optional)."
+    },
+    "profession": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Profession (e.g., Physician)."
+    },
+    "specialty": {
+      "type": "string",
+      "description": "Medical specialty (optional)."
+    },
+    "license_status": {
+      "type": "string",
+      "description": "License status (optional)."
+    },
+    "registration_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of registration (optional)."
+    },
+
+    "practice_address": {
+      "type": "object",
+      "description": "Practice address (optional).",
+      "additionalProperties": true,
+      "properties": {
+        "street_address": { "type": "string" },
+        "locality": { "type": "string" },
+        "region": { "type": "string" },
+        "postal_code": { "type": "string" },
+        "country": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$"
+        }
+      }
+    }
+  }
+}
